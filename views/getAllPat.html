@@ -1,0 +1,49 @@
+<html>
+<head>
+    <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body>
+    <div class="header">
+        <h1>
+            <a href="/newDoc">Insert new doctor</a>
+            <a href="/getAllDoc">Get all doctors</a>
+            <a href="/newPat">Insert new patient</a>
+            <a href="/deletePat">Delete patient by fullName</a>
+            <a href="/updateDoc">Update Doctor numPatients by _id</a>
+        </h1>
+      </div>
+    <h1>Get all patients!
+    </h1>
+    </br>
+    <h3>Details:
+        <table>
+            <tr>
+                <th>full name</th>
+                <th>doctor</th>
+                <th>age</th>
+                <th>date of visit</th>
+                <th>case description</th>
+            </tr>
+            <% for ( let i =0; i< bDb.length;i++){ %>
+                <tr>
+                    <td>
+                        <%= bDb[i].fullName %>
+                    </td>
+                    <td>
+                        <%= bDb[i].doctor %>
+                    </td>
+                    <td>
+                        <%= bDb[i].age %>
+                    </td>
+                    <td>
+                        <%= bDb[i].dateOfVisit %>
+                    </td>
+                    <td>
+                        <%= bDb[i].caseDescription %>
+                    </td>
+                </tr>
+                <% }%>
+     </table>
+    </h3>
+</body>
+</html>

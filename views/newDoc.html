@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="./css/styles.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <div class="header">
+      <h1>
+        <a href="/getAllDoc">Get all doctors</a>
+        <a href="/newPat">Insert new patient</a>
+        <a href="/getAllPat">Get all patients page</a>
+        <a href="/deletePat">Delete patient by fullName</a>
+        <a href="/updateDoc">Update Doctor numPatients by _id</a>
+    </h1>
+      </div>
+<form method="post" action="/newDoc">
+  <div class="container">
+    <h1>Insert a new Doctor</h1>
+    <hr>
+
+    <label for="dfn"><b>first name</b></label>
+    <input type="text" placeholder="Enter first name" name="dfn" id="dfn" required>
+
+    <label for="dln"><b>last name</b></label>
+    <input type="text" placeholder="Enter last name" name="dln" id="dln" required>
+    
+    <label for="ddb"><b>date of birth</b></label>
+    <input type="text" placeholder="Enter date of birth" name="ddb" id="ddb" required>
+
+    <label for="dstate"><b>State</b></label>
+    <input type="text" placeholder="Enter State" name="dstate" id="dstate" required>
+
+    <label for="dsuburb"><b>Suburb</b></label>
+    <input type="text" placeholder="Enter Suburb" name="dsuburb" id="dsuburb" required>
+
+    <label for="dstreet"><b>Street</b></label>
+    <input type="text" placeholder="Enter Street" name="dstreet" id="dstreet" required>
+
+    <label for="dunit"><b>Unit</b></label>
+    <input type="text" placeholder="Enter Unit" name="dunit" id="dunit" required>
+
+    <label for="dnp"><b>Number of Patients</b></label>
+    <input type="text" placeholder="Enter Number of Patients" name="dnp" id="dnp" required>
+    <hr>
+
+    <button type="submit" class="btn">Add This Doctor</button>
+  </div>
+  
+
+</form>
+
+</body>
+</html>

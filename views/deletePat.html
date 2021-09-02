@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="./css/styles.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <div class="header">
+        <h1>
+          <a href="/newDoc">Insert new doctor</a>
+          <a href="/getAllDoc">Get all doctors</a>
+          <a href="/newPat">Insert new patient</a>
+          <a href="/getAllPat">Get all patients page</a>
+          <a href="/updateDoc">Update Doctor numPatients by _id</a>
+        </h1>
+      </div>
+<form method="post" action="/deletePat">
+  <div class="container">
+    <h1>Delete patient by fullName</h1>
+    <hr>
+    <label for="pname"><b>patient's fullName</b></label>
+    <input type="text" placeholder="Enter patient's fullName" name="pname" id="pname" required>
+    <hr>
+
+    <button type="submit" class="btn">Delete</button>
+  </div>
+  
+
+</form>
+
+</body>
+</html>

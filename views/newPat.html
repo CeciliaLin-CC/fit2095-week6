@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="./css/styles.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <div class="header">
+      <h1>
+        <a href="/newDoc">Insert new doctor</a>
+        <a href="/getAllDoc">Get all doctors</a>
+        <a href="/getAllPat">Get all patients page</a>
+        <a href="/deletePat">Delete patient by fullName</a>
+        <a href="/updateDoc">Update Doctor numPatients by _id</a>
+    </h1>
+      </div>
+<form method="post" action="/newPat">
+  <div class="container">
+    <h1>Insert new patient</h1>
+    <hr>
+
+    <label for="pname"><b>full name</b></label>
+    <input type="text" placeholder="Enter full name" name="pname" id="pname" required>
+
+    <label for="pdoctor"><b>doctor ID</b></label>
+    <input type="text" placeholder="Enter doctor ID" name="pdoctor" id="pdoctor" required>
+    
+    <label for="page"><b>age</b></label>
+    <input type="text" placeholder="Enter age" name="page" id="page" required>
+
+    <label for="pdv"><b>date of visit</b></label>
+    <input type="text" placeholder="Enter date of visit" name="pdv" id="pdv" required>
+
+    <label for="pcase"><b>case description</b></label>
+    <input type="text" placeholder="Enter case description" name="pcase" id="pcase" required>
+    <hr>
+
+    <button type="submit" class="btn">Add Patient</button>
+  </div>
+  
+
+</form>
+
+</body>
+</html>
