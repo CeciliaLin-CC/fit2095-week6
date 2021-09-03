@@ -25,6 +25,8 @@ mongoose.connect('mongodb://localhost:27017/DB', function (err) {
     console.log('Successfully connected');
 });
 
+
+
 app.get("/", function (req, res) {
     res.sendFile(__dirname + "/index.html");
 });
@@ -63,10 +65,16 @@ app.post("/newDoc", function (req, res) {
         numPatients: docDetails.dnp
 });
     newdoc.save(function (err) {
-        if (err) {res.sendFile(__dirname + '/views/invalid.html');};
-        console.log('Doctor successfully add to DB');
+        if (err) {
+            console.log('Failed to add Doctor to DB',err);
+            res.redirect('/views/invalid.html');
+
+        }else{
+            console.log('Doctor successfully add to DB');
+            res.redirect("/getAllPat"); 
+        };
     });
-    res.redirect("/getAllPat"); 
+    //res.redirect("/getAllPat"); 
 });
 
 app.get('/newPat', function (req, res) {
@@ -76,17 +84,30 @@ app.post("/newPat", function (req, res) {
     let patDetails = req.body;
     var newpat = new Patient({
         _id: new mongoose.Types.ObjectId(),
-        fullname: patDetails.pname,
+        fullName: patDetails.pname,
         doctor: patDetails.pdoctor,
         age: patDetails.page,
         dateOfVisit: patDetails.pdv,
         caseDescription: patDetails.pcase
-});
-    newpat.save(function (err) {
-        if (err) {res.sendFile(__dirname + '/views/invalid.html');};
-        console.log('Patient successfully add to DB');
     });
-    res.redirect("/getAllPat"); 
+    Doctor.findByIdAndUpdate(  {_id:patDetails.pdoctor} , { $inc: { 'numPatients': 1 } },{new: true}, function (err, doc) {
+        if (err) {
+            console.log('Failed to update',err);
+            res.redirect('/views/invalid.html');
+        }else{
+            newpat.save(function (err) {
+                if (err) {
+                    console.log('Failed to add patient to DB',err);
+                    res.redirect('/views/invalid.html');
+        
+                }else{
+                    console.log('Patient successfully add to DB');
+                    res.redirect("/getAllPat"); 
+                };
+                
+            }); 
+        };
+    });
 });
 
 app.get('/updateDoc', function (req, res) {
@@ -94,8 +115,15 @@ app.get('/updateDoc', function (req, res) {
 });
 app.post("/updateDoc", function (req, res) {
     let details = req.body;
-    Doctor.updateOne({ '_id': details.did }, { $set: { 'numPatients': details.dnp } }, function (err, doc) {});
-    res.redirect("/getAllPat"); 
+    Doctor.findByIdAndUpdate( { '_id':details.did} , { $set: { 'numPatients': details.dnp } },{new: true}, function (err, doc) {
+        if (err) {
+            console.log('Failed to update',err);
+            res.redirect('/views/invalid.html');
+        }else{
+            res.redirect("/getAllPat"); 
+        };
+    });
+    // res.redirect("/getAllPat"); 
 });
 
 app.get('/deletePat', function (req, res) {
@@ -103,8 +131,48 @@ app.get('/deletePat', function (req, res) {
 });
 app.post('/deletePat', function (req, res) {
     let details = req.body;
-    Patient.deleteMany({ 'fullname': details.pname }, function (err, doc) {});
-    res.redirect("/getAllPat"); 
+    Patient.deleteMany({ 'fullName': details.pname }, function (err, doc) {
+        if (err) {
+            console.log('Failed to delete',err);
+            res.redirect('/views/invalid.html');
+        }else{
+            res.redirect("/getAllPat"); 
+        };  
+    });
+    // res.redirect("/getAllPat"); 
+});
+
+app.get('/listdoctors/:sta', function (req, res) {
+    let s = req.params.sta;
+    let state;
+
+    switch(s) {
+        case "NewSouthWales":
+            state = 'NSW';
+            break;
+        case "Queensland":
+            state = 'QLD';
+            break;
+        case "SouthAustralia":
+            state = 'SA';
+            break;
+        case "Tasmania":
+            state = 'TAS';
+            break;
+        case "Victoria":
+            state = 'VIC';
+            break;
+        case "WesternAustralia":
+            state = 'WA';
+            break;
+        default:
+            state = 'VIC';
+    };
+
+    Doctor.find({'state': state}, function (err, data) {
+        res.render("getAllDoc.html", { bDb: data });
+      });
+    
 });
 
 
